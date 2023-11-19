@@ -6,8 +6,7 @@ import lombok.Value;
 import java.util.UUID;
 
 @Value
-public class CarReservationFailedEvent implements RenterEvent {
+public class CarRentedEvent implements RenterEvent {
   @NonNull UUID renterId;
   @NonNull UUID carId;
-  @NonNull String reason;
 }
