@@ -1,66 +1,79 @@
 package mstopin.carsharing.carsharing.renter.domain;
 
+import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.carsharing.car.domain.AvailableCar;
 import mstopin.carsharing.carsharing.car.domain.RentedCar;
-import mstopin.carsharing.carsharing.renter.domain.events.CarReservationFailedEvent;
+import mstopin.carsharing.carsharing.car.domain.ReservedCar;
+import mstopin.carsharing.carsharing.renter.domain.events.CarRentalFinishedEvent;
+import mstopin.carsharing.carsharing.renter.domain.events.CarRentedEvent;
+import mstopin.carsharing.carsharing.renter.domain.events.CarReservationCanceledEvent;
 import mstopin.carsharing.carsharing.renter.domain.events.CarReservedEvent;
-import mstopin.carsharing.carsharing.renter.domain.events.RenterEvent;
+import mstopin.carsharing.carsharing.renter.domain.rules.AssertRentalAppliesToCar;
+import mstopin.carsharing.carsharing.renter.domain.rules.EnsureMaxOneRentalRule;
+import mstopin.carsharing.carsharing.renter.domain.rules.RequireMinimalFuelPercentRule;
+import mstopin.carsharing.carsharing.renter.domain.rules.RequireNotExpiredRental;
 import mstopin.carsharing.common.domain.AggregateRoot;
+import mstopin.carsharing.common.domain.Entity;
 
-import java.util.Optional;
 import java.util.UUID;
 
-public class Renter implements AggregateRoot {
-
+@RequiredArgsConstructor
+public class Renter implements AggregateRoot, Entity {
   private final RenterId renterId;
-  private final ReservationPolicies reservationPolicies;
-  private Rental rental;
-
-  public Renter(RenterId renterId) {
-    this.renterId = renterId;
-    this.reservationPolicies = ReservationPolicies.of(ReservationPolicy.allPolicies());
-  }
+  private final Rental rental;
 
   @Override
   public UUID getAggregateId() {
     return renterId.getId();
   }
 
-
-  public RenterEvent reserve(AvailableCar car) {
-    Optional<Rejection> reserveRejection = reservationPolicies.isSatisfied(this, car);
-
-    if (reserveRejection.isPresent()) {
-      return new CarReservationFailedEvent(
-        getAggregateId(),
-        car.getAggregateId(),
-        reserveRejection.get().getReason()
-      );
-    }
-
-    ReservationRental reservationRental = ReservationRental.fromNow(car);
-    this.rental = reservationRental;
-
-    return new CarReservedEvent(
-      getAggregateId(),
-      car.getAggregateId(),
-      reservationRental.getTo()
-    );
-  }
-
-
-  public void rent(RentedCar car) {
-
-  }
   public boolean hasRental() {
     if (rental == null) {
       return false;
     }
 
-    if (rental instanceof ReservationRental) {
-      return !((ReservationRental) rental).isExpired();
-    }
+    return !rental.isExpired();
+  }
 
-    return true;
+  public CarReservedEvent reserve(AvailableCar car) {
+    this.validateBusinessRule(new EnsureMaxOneRentalRule(this));
+    this.validateBusinessRule(new RequireMinimalFuelPercentRule(car));
+
+    ReservationRental rental = ReservationRental.fromNow(car);
+
+    return new CarReservedEvent(
+      getAggregateId(),
+      car.getAggregateId(),
+      rental.getTo()
+    );
+  }
+
+  public CarReservationCanceledEvent cancelReservation(ReservedCar car) {
+    this.validateBusinessRule(new AssertRentalAppliesToCar(car, rental));
+    this.validateBusinessRule(new RequireNotExpiredRental(rental));
+
+    return new CarReservationCanceledEvent(
+      getAggregateId(),
+      car.getAggregateId()
+    );
+  }
+
+  public CarRentedEvent rent(ReservedCar car) {
+    this.validateBusinessRule(new AssertRentalAppliesToCar(car, rental));
+    this.validateBusinessRule(new RequireNotExpiredRental(rental));
+
+    return new CarRentedEvent(
+      getAggregateId(),
+      car.getAggregateId()
+    );
+  }
+
+  public CarRentalFinishedEvent finishRent(RentedCar car) {
+    this.validateBusinessRule(new AssertRentalAppliesToCar(car, rental));
+
+    return new CarRentalFinishedEvent(
+      getAggregateId(),
+      car.getAggregateId()
+    );
   }
 }
