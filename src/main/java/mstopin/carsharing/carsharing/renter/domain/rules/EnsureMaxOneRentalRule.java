@@ -10,7 +10,7 @@ public class EnsureMaxOneRentalRule implements BusinessRule {
 
   @Override
   public boolean isBroken() {
-    return renter.hasRental();
+    return renter.hasActiveRental();
   }
 
   @Override

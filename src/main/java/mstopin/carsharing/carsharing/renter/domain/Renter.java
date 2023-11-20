@@ -20,37 +20,37 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class Renter implements AggregateRoot, Entity {
   private final RenterId renterId;
-  private final Rental rental;
+  private final AbstractRental abstractRental;
 
   @Override
   public UUID getAggregateId() {
     return renterId.getId();
   }
 
-  public boolean hasRental() {
-    if (rental == null) {
+  public boolean hasActiveRental() {
+    if (abstractRental == null) {
       return false;
     }
 
-    return !rental.isExpired();
+    return !abstractRental.isExpired();
   }
 
   public CarReservedEvent reserve(AvailableCar car) {
     this.validateBusinessRule(new EnsureMaxOneRentalRule(this));
     this.validateBusinessRule(new RequireMinimalFuelPercentRule(car));
 
-    ReservationRental rental = ReservationRental.fromNow(car);
+    Reservation reservation = Reservation.reserveNow(car.getAggregateId());
 
     return new CarReservedEvent(
       getAggregateId(),
       car.getAggregateId(),
-      rental.getTo()
+      reservation.getValidTo()
     );
   }
 
   public CarReservationCanceledEvent cancelReservation(ReservedCar car) {
-    this.validateBusinessRule(new AssertRentalAppliesToCar(car, rental));
-    this.validateBusinessRule(new RequireNotExpiredRental(rental));
+    this.validateBusinessRule(new AssertRentalAppliesToCar(car, abstractRental));
+    this.validateBusinessRule(new RequireNotExpiredRental(abstractRental));
 
     return new CarReservationCanceledEvent(
       getAggregateId(),
@@ -59,8 +59,8 @@ public class Renter implements AggregateRoot, Entity {
   }
 
   public CarRentedEvent rent(ReservedCar car) {
-    this.validateBusinessRule(new AssertRentalAppliesToCar(car, rental));
-    this.validateBusinessRule(new RequireNotExpiredRental(rental));
+    this.validateBusinessRule(new AssertRentalAppliesToCar(car, abstractRental));
+    this.validateBusinessRule(new RequireNotExpiredRental(abstractRental));
 
     return new CarRentedEvent(
       getAggregateId(),
@@ -68,8 +68,8 @@ public class Renter implements AggregateRoot, Entity {
     );
   }
 
-  public CarRentalFinishedEvent finishRent(RentedCar car) {
-    this.validateBusinessRule(new AssertRentalAppliesToCar(car, rental));
+  public CarRentalFinishedEvent finishRental(RentedCar car) {
+    this.validateBusinessRule(new AssertRentalAppliesToCar(car, abstractRental));
 
     return new CarRentalFinishedEvent(
       getAggregateId(),

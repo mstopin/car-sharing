@@ -3,7 +3,7 @@ package mstopin.carsharing.carsharing.car.domain;
 import java.util.UUID;
 
 public class AvailableCar extends Car {
-  public AvailableCar(UUID id) {
-    super(id);
+  public AvailableCar(UUID carId, Fuel fuel) {
+    super(carId, fuel);
   }
 }
