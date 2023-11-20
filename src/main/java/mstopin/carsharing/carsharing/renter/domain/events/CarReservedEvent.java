@@ -10,5 +10,5 @@ import java.util.UUID;
 public class CarReservedEvent implements RenterEvent {
   @NonNull UUID renterId;
   @NonNull UUID carId;
-  @NonNull Instant to;
+  @NonNull Instant expiresAt;
 }

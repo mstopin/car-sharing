@@ -7,8 +7,13 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public class Reservation {
+  private final UUID id;
   private final UUID carId;
   private final ReservationExpiration reservationExpiration;
+
+  public UUID getId() {
+    return id;
+  }
 
   public boolean isExpired() {
     return reservationExpiration.isExpired();

@@ -8,12 +8,13 @@ import mstopin.carsharing.carsharing.renter.application.FindAvailableCar;
 import mstopin.carsharing.carsharing.renter.application.FindRentedCar;
 import mstopin.carsharing.carsharing.renter.application.FindReservedCar;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 public class CarDatabaseRepository implements FindAvailableCar, FindReservedCar, FindRentedCar {
-  private final CarJpaRepository carRepository;
+  private final CarEntityRepository carRepository;
   @Override
   public Optional<AvailableCar> findAvailableCarById(UUID carId) {
     return carRepository
