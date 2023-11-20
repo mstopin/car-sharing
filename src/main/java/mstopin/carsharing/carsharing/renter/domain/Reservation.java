@@ -1,26 +1,21 @@
 package mstopin.carsharing.carsharing.renter.domain;
 
+import lombok.RequiredArgsConstructor;
+import mstopin.carsharing.carsharing.car.domain.Car;
+
 import java.time.Instant;
 import java.util.UUID;
 
-class Reservation extends AbstractRental {
-  private static final long DEFAULT_RESERVATION_TIME_SECONDS = 15 * 60;
-  private final Instant validTo;
+@RequiredArgsConstructor
+public class Reservation {
+  private final UUID carId;
+  private final ReservationExpiration reservationExpiration;
 
-  public Reservation(UUID carId, Instant validTo) {
-    super(carId);
-    this.validTo = validTo;
-  }
-
-  public static Reservation reserveNow(UUID carId) {
-    return new Reservation(
-      carId,
-      Instant.now().plusSeconds(DEFAULT_RESERVATION_TIME_SECONDS)
-    );
-  }
-
-  @Override
   public boolean isExpired() {
-    return validTo.isBefore(Instant.now());
+    return reservationExpiration.isExpired();
+  }
+
+  public boolean isFor(Car car) {
+    return car.getAggregateId().equals(carId);
   }
 }
