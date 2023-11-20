@@ -9,4 +9,5 @@ import java.util.UUID;
 public class CarRentalFinishedEvent implements RenterEvent {
   @NonNull UUID renterId;
   @NonNull UUID carId;
+  @NonNull UUID rentalId;
 }

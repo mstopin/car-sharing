@@ -47,7 +47,8 @@ public class Renter implements AggregateRoot, Entity {
 
     return new CarReservationCanceledEvent(
       getAggregateId(),
-      car.getAggregateId()
+      car.getAggregateId(),
+      reservation.getId()
     );
   }
 
@@ -65,7 +66,8 @@ public class Renter implements AggregateRoot, Entity {
 
     return new CarRentalFinishedEvent(
       getAggregateId(),
-      car.getAggregateId()
+      car.getAggregateId(),
+      rental.getId()
     );
   }
 }

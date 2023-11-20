@@ -1,6 +1,8 @@
 package mstopin.carsharing.carsharing.car.infra;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import mstopin.carsharing.carsharing.car.domain.AvailableCar;
 import mstopin.carsharing.carsharing.car.domain.Fuel;
 import mstopin.carsharing.carsharing.car.domain.RentedCar;
@@ -15,6 +17,8 @@ enum CarStatus {
 }
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class CarEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

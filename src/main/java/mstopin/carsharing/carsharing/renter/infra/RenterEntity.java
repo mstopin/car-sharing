@@ -1,6 +1,10 @@
 package mstopin.carsharing.carsharing.renter.infra;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import mstopin.carsharing.carsharing.renter.domain.Rental;
 import mstopin.carsharing.carsharing.renter.domain.Renter;
 import mstopin.carsharing.carsharing.renter.domain.RenterFactory;
@@ -11,9 +15,16 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class RenterEntity {
+  @Id
   private UUID id;
+
+  @OneToMany
   private Set<ReservationEntity> reservations;
+
+  @OneToMany
   private Set<RentalEntity> rentals;
 
   Renter toDomain() {
