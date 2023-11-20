@@ -3,7 +3,6 @@ package mstopin.carsharing.carsharing.renter.domain;
 import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.carsharing.car.domain.Car;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @RequiredArgsConstructor

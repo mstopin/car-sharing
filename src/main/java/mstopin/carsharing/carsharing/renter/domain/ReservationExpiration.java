@@ -1,6 +1,5 @@
 package mstopin.carsharing.carsharing.renter.domain;
 
-import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 import java.time.Instant;

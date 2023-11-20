@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.carsharing.car.domain.Car;
 import mstopin.carsharing.carsharing.renter.domain.Reservation;
 import mstopin.carsharing.common.domain.BusinessRule;
-import org.springframework.lang.Nullable;
 
 @RequiredArgsConstructor
 public class RequireActiveReservationForCar implements BusinessRule {

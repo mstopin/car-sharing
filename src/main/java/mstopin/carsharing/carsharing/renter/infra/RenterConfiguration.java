@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RenterConfiguration {
   @Bean
-  RenterDatabaseRepository renterDatabaseRepository(RenterJpaRepository renterJpaRepository) {
-    return new RenterDatabaseRepository(renterJpaRepository);
+  RenterDatabaseRepository renterDatabaseRepository(RenterEntityRepository renterEntityRepository) {
+    return new RenterDatabaseRepository(renterEntityRepository);
   }
 }
 
