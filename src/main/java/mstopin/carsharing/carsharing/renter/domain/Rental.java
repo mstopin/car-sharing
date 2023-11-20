@@ -1,14 +1,17 @@
 package mstopin.carsharing.carsharing.renter.domain;
 
+import lombok.RequiredArgsConstructor;
+import mstopin.carsharing.carsharing.car.domain.Car;
+
+import java.time.Instant;
 import java.util.UUID;
 
-class Rental extends AbstractRental {
-  public Rental(UUID carId) {
-    super(carId);
-  }
+@RequiredArgsConstructor
+public class Rental {
+  private final UUID carId;
+  private final Instant rentedAt;
 
-  @Override
-  public boolean isExpired() {
-    return false;
+  public boolean isFor(Car car) {
+    return car.getAggregateId().equals(carId);
   }
 }

@@ -4,8 +4,6 @@ import mstopin.carsharing.carsharing.renter.application.FindAvailableCar;
 import mstopin.carsharing.carsharing.renter.application.commands.ReserveCarCommand;
 import mstopin.carsharing.carsharing.renter.application.handlers.ReserveCarCommandHandler;
 import mstopin.carsharing.carsharing.renter.domain.RenterRepository;
-import mstopin.carsharing.common.application.Command;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
