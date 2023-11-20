@@ -1,17 +1,21 @@
 package mstopin.carsharing.carsharing.car.domain;
 
+import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.common.domain.AggregateRoot;
 
 import java.util.UUID;
 
-public abstract class Car extends AggregateRoot {
+@RequiredArgsConstructor
+public abstract class Car implements AggregateRoot {
+  private final UUID carId;
   private final Fuel fuel;
-  public Car(UUID id, Fuel fuel) {
-    super(id);
-    this.fuel = fuel;
-  }
 
   public Fuel getFuel() {
     return fuel;
+  }
+
+  @Override
+  public UUID getAggregateId() {
+    return carId;
   }
 }

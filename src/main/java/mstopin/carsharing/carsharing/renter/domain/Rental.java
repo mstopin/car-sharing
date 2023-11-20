@@ -1,11 +1,14 @@
 package mstopin.carsharing.carsharing.renter.domain;
 
-import mstopin.carsharing.carsharing.car.domain.Car;
-
 import java.util.UUID;
 
-public interface Rental {
-  boolean isExpired();
+class Rental extends AbstractRental {
+  public Rental(UUID carId) {
+    super(carId);
+  }
 
-  UUID getCarId();
+  @Override
+  public boolean isExpired() {
+    return false;
+  }
 }
