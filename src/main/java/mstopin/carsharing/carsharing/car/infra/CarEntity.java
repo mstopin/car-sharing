@@ -3,10 +3,7 @@ package mstopin.carsharing.carsharing.car.infra;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import mstopin.carsharing.carsharing.car.domain.AvailableCar;
-import mstopin.carsharing.carsharing.car.domain.Fuel;
-import mstopin.carsharing.carsharing.car.domain.RentedCar;
-import mstopin.carsharing.carsharing.car.domain.ReservedCar;
+import mstopin.carsharing.carsharing.car.domain.*;
 
 import java.util.UUID;
 
@@ -29,15 +26,35 @@ public class CarEntity {
 
   private double fuel;
 
-  AvailableCar toAvailableCar() {
-    return new AvailableCar(id, new Fuel(fuel));
+  Car toDomain() {
+    if (status == CarStatus.AVAILABLE) {
+      return new AvailableCar(id, new Fuel(fuel));
+    }
+
+    if (status == CarStatus.RESERVED) {
+      return new ReservedCar(id, new Fuel(fuel));
+    }
+
+    if (status == CarStatus.RENTED) {
+      return new RentedCar(id, new Fuel(fuel));
+    }
+
+    throw new IllegalStateException("Unexpected car status");
   }
 
-  ReservedCar toReservedCar() {
-    return new ReservedCar(id, new Fuel(fuel));
-  }
+  static CarEntity fromDomain(Car car) {
+    if (car instanceof AvailableCar) {
+      return new CarEntity(car.getAggregateId(), CarStatus.AVAILABLE, car.getFuel().asDouble());
+    }
 
-  RentedCar toRentedCar() {
-    return new RentedCar(id, new Fuel(fuel));
+    if (car instanceof ReservedCar) {
+      return new CarEntity(car.getAggregateId(), CarStatus.RESERVED, car.getFuel().asDouble());
+    }
+
+    if (car instanceof RentedCar) {
+      return new CarEntity(car.getAggregateId(), CarStatus.RENTED, car.getFuel().asDouble());
+    }
+
+    throw new IllegalArgumentException(("Unexpected car status"));
   }
 }
