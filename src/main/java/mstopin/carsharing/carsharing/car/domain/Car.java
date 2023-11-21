@@ -7,8 +7,8 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public abstract class Car implements AggregateRoot {
-  private final UUID carId;
-  private final Fuel fuel;
+  protected final UUID carId;
+  protected final Fuel fuel;
 
   public Fuel getFuel() {
     return fuel;
