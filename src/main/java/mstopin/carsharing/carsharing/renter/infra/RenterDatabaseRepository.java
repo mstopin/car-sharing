@@ -52,12 +52,20 @@ public class RenterDatabaseRepository implements RenterRepository {
 
   @Override
   public void publishDomainEvent(RenterEvent event) {
-    if (event instanceof CarReservedEvent) {
-      handleCarReserved((CarReservedEvent) event);
+    if (event instanceof CarReservedEvent carReservedEvent) {
+      handleCarReserved(carReservedEvent);
     }
 
-    if (event instanceof CarReservationCanceledEvent) {
-      handleCarReservationCancelled((CarReservationCanceledEvent) event);
+    if (event instanceof CarReservationCanceledEvent carReservationCanceledEvent) {
+      handleCarReservationCancelled(carReservationCanceledEvent);
+    }
+
+    if (event instanceof CarRentedEvent carRentedEvent) {
+      handleCarRented(carRentedEvent);
+    }
+
+    if (event instanceof CarRentalFinishedEvent carRentalFinishedEvent) {
+      handleCarRentalFinished(carRentalFinishedEvent);
     }
   }
 
