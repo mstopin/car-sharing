@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 interface RenterEntityRepository extends JpaRepository<RenterEntity, UUID> {}
@@ -37,6 +38,16 @@ public class RenterDatabaseRepository implements RenterRepository {
     return renterEntityRepository
       .findById(renterId)
       .map(RenterEntity::toDomain);
+  }
+
+  @Override
+  public void save(Renter renter) {
+    renterEntityRepository.save(new RenterEntity(
+      renter.getAggregateId(),
+      Set.of(),
+      Set.of(),
+      renter.getType()
+    ));
   }
 
   @Override

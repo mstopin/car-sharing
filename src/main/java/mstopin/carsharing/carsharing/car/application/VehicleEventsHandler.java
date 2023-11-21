@@ -15,7 +15,7 @@ public class VehicleEventsHandler {
   void handleNewVehicleAdded(NewVehicleAddedEvent event) {
     carRepository.save(new AvailableCar(
       event.getAggregateId(),
-      new Fuel(1)
+      Fuel.fromPercent(100)
     ));
   }
 }

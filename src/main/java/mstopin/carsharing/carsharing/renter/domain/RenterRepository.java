@@ -8,5 +8,7 @@ import java.util.UUID;
 public interface RenterRepository {
   Optional<Renter> find(UUID renterId);
 
+  void save(Renter renter);
+
   void publishDomainEvent(RenterEvent renterEvent);
 }

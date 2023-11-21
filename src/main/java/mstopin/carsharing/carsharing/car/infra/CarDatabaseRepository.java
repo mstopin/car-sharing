@@ -12,7 +12,7 @@ interface CarEntityRepository extends JpaRepository<CarEntity, UUID> {
 }
 
 @RequiredArgsConstructor
-public class CarDatabaseRepository implements CarRepository  {
+public class CarDatabaseRepository implements CarRepository {
   private final CarEntityRepository carRepository;
   @Override
   public Optional<Car> findById(UUID id) {

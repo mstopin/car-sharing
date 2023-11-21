@@ -1,7 +1,9 @@
 package mstopin.carsharing.vehicles;
 
 import jakarta.persistence.Embeddable;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Embeddable

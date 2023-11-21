@@ -1,14 +1,9 @@
 package mstopin.carsharing.carsharing.renter.infra;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import mstopin.carsharing.carsharing.renter.domain.Rental;
-import mstopin.carsharing.carsharing.renter.domain.Renter;
-import mstopin.carsharing.carsharing.renter.domain.RenterFactory;
-import mstopin.carsharing.carsharing.renter.domain.Reservation;
+import mstopin.carsharing.carsharing.renter.domain.*;
 
 import java.util.Optional;
 import java.util.Set;
@@ -27,6 +22,9 @@ public class RenterEntity {
   @OneToMany
   private Set<RentalEntity> rentals;
 
+  @Enumerated(EnumType.STRING)
+  private RenterType renterType;
+
   Renter toDomain() {
     Reservation reservation = findLastNotFinalized()
       .map(ReservationEntity::toDomain)
@@ -39,7 +37,8 @@ public class RenterEntity {
     return RenterFactory.create(
       id,
       reservation,
-      rental
+      rental,
+      renterType
     );
   }
   private Optional<ReservationEntity> findLastNotFinalized() {
