@@ -1,8 +1,8 @@
 package mstopin.carsharing.carsharing.renter.application.handlers;
 
 import lombok.RequiredArgsConstructor;
+import mstopin.carsharing.carsharing.car.domain.CarRepository;
 import mstopin.carsharing.carsharing.car.domain.RentedCar;
-import mstopin.carsharing.carsharing.renter.application.FindRentedCar;
 import mstopin.carsharing.carsharing.renter.application.commands.FinishRentalCommand;
 import mstopin.carsharing.carsharing.renter.domain.Renter;
 import mstopin.carsharing.carsharing.renter.domain.RenterRepository;
@@ -11,7 +11,7 @@ import mstopin.carsharing.common.application.CommandHandler;
 
 @RequiredArgsConstructor
 public class FinishRentalCommandHandler implements CommandHandler<FinishRentalCommand, Void> {
-  private final FindRentedCar findRentedCar;
+  private final CarRepository carRepository;
   private final RenterRepository renterRepository;
 
   @Override
@@ -20,7 +20,7 @@ public class FinishRentalCommandHandler implements CommandHandler<FinishRentalCo
       .find(command.getRenterId())
       .orElseThrow(() -> new IllegalArgumentException("Cannot find render with id: " + command.getRenterId()));
 
-    RentedCar car = findRentedCar
+    RentedCar car = carRepository
       .findRentedCarById(command.getCarId())
       .orElseThrow(() -> new IllegalArgumentException("Cannot find rented car with id: " + command.getCarId()));
 

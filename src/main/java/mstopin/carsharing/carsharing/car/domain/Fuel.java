@@ -18,4 +18,8 @@ public class Fuel {
   public boolean isAboveOrEqual(double percent) {
     return !isBelow(percent);
   }
+
+  public double asDouble() {
+    return amount;
+  }
 }
