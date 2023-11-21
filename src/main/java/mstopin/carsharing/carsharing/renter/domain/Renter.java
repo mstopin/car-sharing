@@ -22,11 +22,17 @@ public class Renter implements AggregateRoot, Entity {
   private final UUID renterId;
   private final Reservation reservation;
   private final Rental rental;
+
+  private final RenterType type;
   private final ReservationExpirationPolicy reservationExpirationPolicy;
 
   @Override
   public UUID getAggregateId() {
     return renterId;
+  }
+
+  public RenterType getType() {
+    return type;
   }
 
   public CarReservedEvent reserve(AvailableCar car) {

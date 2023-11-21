@@ -11,6 +11,6 @@ public class NewVehicleAddedEvent implements DomainEvent {
 
   @Override
   public UUID getAggregateId() {
-    return null;
+    return vehicleId;
   }
 }

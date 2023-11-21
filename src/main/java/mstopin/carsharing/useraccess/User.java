@@ -1,0 +1,28 @@
+package mstopin.carsharing.useraccess;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.Instant;
+import java.util.UUID;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+
+  private String email;
+
+  private String password;
+
+  @Enumerated(EnumType.STRING)
+  private UserType type;
+
+  private Instant createdAt;
+}

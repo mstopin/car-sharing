@@ -1,5 +1,7 @@
 package mstopin.carsharing.carsharing.renter.infra;
 
+import mstopin.carsharing.carsharing.renter.application.UserAccessEventsHandler;
+import mstopin.carsharing.carsharing.renter.domain.RenterRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +18,11 @@ public class RenterConfiguration {
       reservationEntityRepository,
       rentalEntityRepository
     );
+  }
+
+  @Bean
+  UserAccessEventsHandler userAccessEventsHandler(RenterRepository renterRepository) {
+    return new UserAccessEventsHandler(renterRepository);
   }
 }
 

@@ -1,15 +1,11 @@
 package mstopin.carsharing.carsharing.car.domain;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Fuel {
   private final double amount;
-
-  public Fuel(double amount) {
-    if (amount < 0 || amount > 1) {
-      throw new IllegalArgumentException("Fuel must be in range <0,1>");
-    }
-
-    this.amount = amount;
-  }
 
   public boolean isBelow(double percent) {
     return amount < (percent / 100.0);
@@ -19,7 +15,15 @@ public class Fuel {
     return !isBelow(percent);
   }
 
-  public double asDouble() {
-    return amount;
+  public static Fuel fromPercent(int percent) {
+    if (percent < 0 || percent > 100) {
+      throw new IllegalArgumentException("Fuel percent must in range <0, 100>");
+    }
+
+    return new Fuel(percent / 100.0);
+  }
+
+  public int asPercent() {
+    return (int)(amount * 100);
   }
 }
