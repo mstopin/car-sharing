@@ -3,10 +3,10 @@ package mstopin.carsharing.carsharing.renter.application.handlers;
 import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.carsharing.car.domain.AvailableCar;
 import mstopin.carsharing.carsharing.car.domain.CarRepository;
-import mstopin.carsharing.carsharing.renter.domain.Renter;
-import mstopin.carsharing.carsharing.renter.domain.events.CarReservedEvent;
 import mstopin.carsharing.carsharing.renter.application.commands.ReserveCarCommand;
+import mstopin.carsharing.carsharing.renter.domain.Renter;
 import mstopin.carsharing.carsharing.renter.domain.RenterRepository;
+import mstopin.carsharing.carsharing.renter.domain.events.CarReservedEvent;
 import mstopin.carsharing.common.application.CommandHandler;
 
 @RequiredArgsConstructor
