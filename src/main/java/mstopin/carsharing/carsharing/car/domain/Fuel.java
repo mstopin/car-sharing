@@ -17,7 +17,7 @@ public class Fuel {
 
   public static Fuel fromPercent(int percent) {
     if (percent < 0 || percent > 100) {
-      throw new IllegalArgumentException("Fuel percent must in range <0, 100>");
+      throw new IllegalArgumentException("Fuel percent must be in range <0, 100>");
     }
 
     return new Fuel(percent / 100.0);
