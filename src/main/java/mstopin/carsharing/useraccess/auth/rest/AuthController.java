@@ -3,7 +3,6 @@ package mstopin.carsharing.useraccess.auth.rest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.useraccess.auth.AuthService;
-import mstopin.carsharing.useraccess.auth.AuthToken;
 import mstopin.carsharing.useraccess.user.User;
 import mstopin.carsharing.useraccess.user.UserService;
 import org.springframework.http.HttpStatus;
@@ -33,8 +32,8 @@ public class AuthController {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
-    AuthToken authToken = authService.createAuthTokenFor(user.get());
+    String authToken = authService.createAuthTokenFor(user.get());
 
-    return UserTokenCreatedResponse.of(authToken.getToken());
+    return UserTokenCreatedResponse.of(authToken);
   }
 }

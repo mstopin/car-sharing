@@ -1,16 +1,24 @@
 package mstopin.carsharing.useraccess.auth;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.useraccess.user.User;
+import mstopin.carsharing.useraccess.user.UserType;
 import org.springframework.core.env.Environment;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -20,25 +28,39 @@ public class JwtAuthTokenProvider implements AuthTokenProvider {
   private final Environment environment;
 
   @Override
-  public AuthToken provideFor(User user) {
+  public String provideFor(User user) {
     Instant issuedAt = Instant.now();
     Instant expiresAt = issuedAt.plusSeconds(TOKEN_ISSUED_FOR_SECONDS);
     Key key = getKey();
 
-    String token = Jwts.builder()
+    return Jwts.builder()
       .issuedAt(Date.from(issuedAt))
       .expiration(Date.from(expiresAt))
-      .header()
-        .add("userId", user.getId())
-        .add("userType", user.getType())
-        .and()
+      .claims(Map.of(
+        "id", user.getId(),
+        "type", user.getType()
+      ))
       .signWith(key)
       .compact();
-
-    return new AuthToken(token);
   }
 
-  private Key getKey() {
+  @Override
+  public Authentication extractUser(String token) {
+    Jws<Claims> jws = Jwts.parser()
+      .verifyWith(getKey())
+      .build()
+      .parseSignedClaims(token);
+
+    return new UsernamePasswordAuthenticationToken(
+      jws.getPayload().get("id", String.class),
+      null,
+      List.of(
+        UserType.valueOf(jws.getPayload().get("type", String.class))
+      )
+    );
+  }
+
+  private SecretKey getKey() {
     String jwtKey = environment.getProperty("jwt.secret");
 
     if (jwtKey == null) {

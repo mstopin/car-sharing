@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
   private final AuthTokenProvider authTokenProvider;
 
-  public AuthToken createAuthTokenFor(User user) {
+  public String createAuthTokenFor(User user) {
     return authTokenProvider.provideFor(user);
   }
 }
