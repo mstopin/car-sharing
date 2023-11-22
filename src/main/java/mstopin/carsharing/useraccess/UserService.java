@@ -17,6 +17,12 @@ public class UserService {
   private final PasswordHashingService passwordHashingService;
   private final DomainEvents domainEvents;
 
+  public Optional<User> findUserByEmailAndPassword(String email, String password) {
+    return userRepository
+      .findByEmail(email)
+      .filter((u) -> passwordHashingService.verify(password, u.getPassword()));
+  }
+
   public User createUser(CreateUserDto createUserDto) {
     Optional<User> exactEmailUser = userRepository.findByEmail(
       createUserDto.getEmail()
