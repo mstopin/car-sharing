@@ -1,5 +1,7 @@
 package mstopin.carsharing.carsharing.renter.domain;
 
+import mstopin.carsharing.common.infra.DefaultTimeProvider;
+
 import java.util.UUID;
 
 public class RenterFactory {
@@ -9,7 +11,7 @@ public class RenterFactory {
       reservation,
       rental,
       renterType,
-      new DefaultReservationExpirationPolicy()
+      new DefaultReservationExpirationPolicy(new DefaultTimeProvider())
     );
   }
 }
