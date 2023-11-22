@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.carsharing.car.domain.AvailableCar;
 import mstopin.carsharing.carsharing.car.domain.RentedCar;
 import mstopin.carsharing.carsharing.car.domain.ReservedCar;
+import mstopin.carsharing.carsharing.renter.domain.events.CarRentalFinishedEvent;
+import mstopin.carsharing.carsharing.renter.domain.events.CarRentedEvent;
+import mstopin.carsharing.carsharing.renter.domain.events.CarReservationCanceledEvent;
 import mstopin.carsharing.carsharing.renter.domain.events.CarReservedEvent;
 import mstopin.carsharing.carsharing.renter.domain.rules.RequireActiveRentalForCar;
 import mstopin.carsharing.carsharing.renter.domain.rules.RequireActiveReservationForCar;
 import mstopin.carsharing.carsharing.renter.domain.rules.RequireEmptyOrExpiredReservation;
 import mstopin.carsharing.carsharing.renter.domain.rules.RequireMinimalFuelPercent;
-import mstopin.carsharing.carsharing.renter.domain.events.CarRentalFinishedEvent;
-import mstopin.carsharing.carsharing.renter.domain.events.CarRentedEvent;
-import mstopin.carsharing.carsharing.renter.domain.events.CarReservationCanceledEvent;
 import mstopin.carsharing.common.domain.AggregateRoot;
 import mstopin.carsharing.common.domain.Entity;
 
