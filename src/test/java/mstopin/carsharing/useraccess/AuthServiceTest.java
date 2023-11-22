@@ -1,5 +1,10 @@
 package mstopin.carsharing.useraccess;
 
+import mstopin.carsharing.useraccess.auth.AuthService;
+import mstopin.carsharing.useraccess.auth.AuthToken;
+import mstopin.carsharing.useraccess.auth.AuthTokenProvider;
+import mstopin.carsharing.useraccess.user.User;
+import mstopin.carsharing.useraccess.user.UserType;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;

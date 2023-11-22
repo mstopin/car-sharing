@@ -1,4 +1,4 @@
-package mstopin.carsharing.useraccess.rest.auth;
+package mstopin.carsharing.useraccess.auth.rest;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

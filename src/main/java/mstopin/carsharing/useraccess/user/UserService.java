@@ -1,10 +1,9 @@
-package mstopin.carsharing.useraccess;
+package mstopin.carsharing.useraccess.user;
 
 import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.common.application.PasswordHashingService;
 import mstopin.carsharing.common.domain.BusinessRuleBrokenException;
 import mstopin.carsharing.common.domain.DomainEvents;
-import mstopin.carsharing.useraccess.dto.CreateUserDto;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

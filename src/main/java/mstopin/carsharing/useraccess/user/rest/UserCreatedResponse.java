@@ -1,7 +1,7 @@
-package mstopin.carsharing.useraccess.rest.user;
+package mstopin.carsharing.useraccess.user.rest;
 
 import lombok.Value;
-import mstopin.carsharing.useraccess.User;
+import mstopin.carsharing.useraccess.user.User;
 
 import java.time.Instant;
 import java.util.UUID;

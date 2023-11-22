@@ -1,4 +1,4 @@
-package mstopin.carsharing.useraccess.dto;
+package mstopin.carsharing.useraccess.user;
 
 import lombok.Value;
 

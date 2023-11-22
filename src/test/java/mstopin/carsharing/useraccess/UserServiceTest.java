@@ -3,7 +3,7 @@ package mstopin.carsharing.useraccess;
 import mstopin.carsharing.common.application.PasswordHashingService;
 import mstopin.carsharing.common.domain.BusinessRuleBrokenException;
 import mstopin.carsharing.common.domain.DomainEvents;
-import mstopin.carsharing.useraccess.dto.CreateUserDto;
+import mstopin.carsharing.useraccess.user.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

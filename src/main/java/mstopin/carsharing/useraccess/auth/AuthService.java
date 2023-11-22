@@ -1,6 +1,7 @@
-package mstopin.carsharing.useraccess;
+package mstopin.carsharing.useraccess.auth;
 
 import lombok.RequiredArgsConstructor;
+import mstopin.carsharing.useraccess.user.User;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
