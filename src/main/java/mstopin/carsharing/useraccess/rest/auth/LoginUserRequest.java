@@ -1,16 +1,14 @@
-package mstopin.carsharing.useraccess.rest;
+package mstopin.carsharing.useraccess.rest.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Value;
 
 @Value
-public class CreateUserRequest {
+public class LoginUserRequest {
   @Email
-  @NotBlank
   String email;
 
-  @Size(min = 8)
+  @NotBlank
   String password;
 }

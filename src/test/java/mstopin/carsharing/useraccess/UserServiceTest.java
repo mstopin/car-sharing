@@ -33,8 +33,28 @@ class UserServiceTest {
   @InjectMocks
   private UserService userService;
 
-  private static class UserFixture {
-    static User USER = new User(UUID.randomUUID(), "email", "password", UserType.USER, Instant.now());
+  @Test
+  void shouldFindUserByEmailIfPasswordHashMatches() {
+    User user = aUser();
+    when(userRepository.findByEmail(any(String.class))).thenReturn(Optional.of(user));
+    when(passwordHashingService.verify(any(String.class), any(String.class))).thenReturn(true);
+
+    assertThat(userService.findUserByEmailAndPassword(
+      user.getEmail(),
+      "password"
+    )).isEqualTo(Optional.of(user));
+  }
+
+  @Test
+  void shouldNotFindUserByEmailIfPasswordHashMismatches() {
+    User user = aUser();
+    when(userRepository.findByEmail(any(String.class))).thenReturn(Optional.of(user));
+    when(passwordHashingService.verify(any(String.class), any(String.class))).thenReturn(false);
+
+    assertThat(userService.findUserByEmailAndPassword(
+      user.getEmail(),
+      "password"
+    )).isEqualTo(Optional.empty());
   }
 
   @Test
@@ -51,12 +71,17 @@ class UserServiceTest {
   @Test
   void shouldThrowIfUserWithExactEmailAlreadyExists() {
     when(userRepository.findByEmail("email")).thenReturn(Optional.of(
-      UserFixture.USER
+      aUser()
     ));
 
     assertThrows(BusinessRuleBrokenException.class, () -> {
       User user = userService.createUser(new CreateUserDto("email", "password"));
     });
+
     verify(domainEvents, never()).publish(any(UserCreatedEvent.class));
+  }
+
+  private User aUser() {
+    return new User(UUID.randomUUID(), "email", "passwordHash", UserType.USER, Instant.now());
   }
 }
