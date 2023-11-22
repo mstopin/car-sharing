@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import mstopin.carsharing.carsharing.renter.domain.RenterFactory;
 import mstopin.carsharing.carsharing.renter.domain.RenterRepository;
 import mstopin.carsharing.carsharing.renter.domain.RenterType;
-import mstopin.carsharing.useraccess.UserCreatedEvent;
-import mstopin.carsharing.useraccess.UserType;
+import mstopin.carsharing.useraccess.user.UserCreatedEvent;
+import mstopin.carsharing.useraccess.user.UserType;
 import org.springframework.context.event.EventListener;
 
 @AllArgsConstructor

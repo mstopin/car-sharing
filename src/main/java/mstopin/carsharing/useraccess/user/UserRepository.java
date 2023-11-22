@@ -1,4 +1,4 @@
-package mstopin.carsharing.useraccess;
+package mstopin.carsharing.useraccess.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

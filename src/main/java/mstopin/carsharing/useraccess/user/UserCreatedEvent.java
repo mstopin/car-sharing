@@ -1,4 +1,4 @@
-package mstopin.carsharing.useraccess;
+package mstopin.carsharing.useraccess.user;
 
 import lombok.RequiredArgsConstructor;
 import mstopin.carsharing.common.domain.DomainEvent;

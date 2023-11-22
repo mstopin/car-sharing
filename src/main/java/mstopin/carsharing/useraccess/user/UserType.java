@@ -1,4 +1,4 @@
-package mstopin.carsharing.useraccess;
+package mstopin.carsharing.useraccess.user;
 
 public enum UserType {
   USER,

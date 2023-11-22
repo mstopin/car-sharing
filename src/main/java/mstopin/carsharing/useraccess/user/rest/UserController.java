@@ -1,9 +1,9 @@
-package mstopin.carsharing.useraccess.rest.user;
+package mstopin.carsharing.useraccess.user.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mstopin.carsharing.useraccess.UserService;
-import mstopin.carsharing.useraccess.dto.CreateUserDto;
+import mstopin.carsharing.useraccess.user.CreateUserDto;
+import mstopin.carsharing.useraccess.user.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

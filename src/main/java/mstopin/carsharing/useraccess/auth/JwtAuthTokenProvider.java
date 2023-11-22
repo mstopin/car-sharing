@@ -1,9 +1,10 @@
-package mstopin.carsharing.useraccess;
+package mstopin.carsharing.useraccess.auth;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import mstopin.carsharing.useraccess.user.User;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
