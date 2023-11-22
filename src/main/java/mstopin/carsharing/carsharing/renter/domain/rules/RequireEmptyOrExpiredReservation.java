@@ -15,6 +15,6 @@ public class RequireEmptyOrExpiredReservation implements BusinessRule {
 
   @Override
   public String getMessage() {
-    return "Renter has already valid reservation";
+    return "Renter has already a valid reservation";
   }
 }

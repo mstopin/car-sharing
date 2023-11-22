@@ -3,14 +3,12 @@ package mstopin.carsharing.carsharing.renter.domain;
 import mstopin.carsharing.carsharing.car.domain.AvailableCar;
 import mstopin.carsharing.carsharing.car.domain.Car;
 import mstopin.carsharing.carsharing.car.domain.Fuel;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.UUID;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ReservationTest {
   @Test
