@@ -11,7 +11,7 @@ import mstopin.carsharing.carsharing.renter.domain.events.CarReservedEvent;
 import mstopin.carsharing.carsharing.renter.domain.rules.RequireActiveRentalForCar;
 import mstopin.carsharing.carsharing.renter.domain.rules.RequireActiveReservationForCar;
 import mstopin.carsharing.carsharing.renter.domain.rules.RequireEmptyOrExpiredReservation;
-import mstopin.carsharing.carsharing.renter.domain.rules.RequireMinimalFuelPercent;
+import mstopin.carsharing.carsharing.renter.domain.rules.RequireMinimalFuelPercentForClient;
 import mstopin.carsharing.common.domain.AggregateRoot;
 import mstopin.carsharing.common.domain.Entity;
 
@@ -37,7 +37,7 @@ public class Renter implements AggregateRoot, Entity {
 
   public CarReservedEvent reserve(AvailableCar car) {
     this.validateBusinessRule(new RequireEmptyOrExpiredReservation(reservation));
-    this.validateBusinessRule(new RequireMinimalFuelPercent(car));
+    this.validateBusinessRule(new RequireMinimalFuelPercentForClient(car, this));
 
     ReservationExpiration reservationExpiration = reservationExpirationPolicy.calculateFor(this);
 
